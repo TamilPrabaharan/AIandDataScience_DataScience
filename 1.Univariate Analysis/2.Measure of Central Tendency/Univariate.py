@@ -51,7 +51,7 @@ class Univariate():
                 Greater.append(ColumnName)
         return Lesser,Greater
 
-    def ReplacingOutliers(dataset, descriptive, Quan):
+    def ReplacingOutliers(dataset, descriptive, Quan, Lesser, Greater):
         for ColumnName in Lesser:
             dataset.loc[dataset[ColumnName] < descriptive[ColumnName]["Lesser"], ColumnName] = descriptive[ColumnName]["Lesser"]
         for ColumnName in Greater:
@@ -59,6 +59,7 @@ class Univariate():
         return dataset
 
     def FreqTable(ColumnName, dataset):
+        import pandas as pd
         FreqTable = pd.DataFrame(columns=["Unique_Values", "Frequency", "Relative_Frequency", "Cummulative_Frequency or cumsum"])
         FreqTable["Unique_Values"] = dataset[ColumnName].value_counts().index
         FreqTable["Frequency"] = dataset[ColumnName].value_counts().values
